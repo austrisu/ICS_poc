@@ -1,13 +1,13 @@
-#Protocol ID:
+# Protocol ID:
 0x32 - Protocol ID
 
-#Message Types:
+# Message Types:
 0x01 - Job Request
 0x02 - Ack
 0x03 - Ack-Data
 0x07 - Userdata
 
-#Header Error Class:
+# Header Error Class:
 0x00 - No error
 0x81 - Application relationship error
 0x82 - Object definition error
@@ -16,9 +16,9 @@
 0x85 - Error on supplies
 0x87 - Access error
 
-#Header Error Codes: (Further refines error)
+# Header Error Codes: (Further refines error)
 
-#Parameter Error Codes:
+# Parameter Error Codes:
 0x0000 - No error
 0x0110 - Invalid block type number
 0x0112 - Invalid parameter
@@ -42,7 +42,7 @@
 0xD802 - L7 unknown request
 0xD803 - L7 invalid request status
 
-#Return value of item response
+# Return value of item response
 0x00 - Reserved
 0x01 - Hardware fault
 0x03 - Accessing the object not allowed
@@ -52,7 +52,7 @@
 0x0a - Object does not exist
 0xff - Success
 
-#Job Request/Ack-Data function codes
+# Job Request/Ack-Data function codes
 0x00 - CPU services
 0xF0 - Setup communication
 0x04 - Read Variable
@@ -66,7 +66,7 @@
 0x28 - PLC Control
 0x29 - PLC Stop
 
-#Memory Areas
+# Memory Areas
 0x03 - System info of S200 family
 0x05 - System flags of S200 family
 0x06 - Analog inputs of S200 family
@@ -84,7 +84,7 @@
 0x86 - Local data (L)
 0x87 - Unknown yet (V)
 
-#Transport size (variable Type) in Item data
+# Transport size (variable Type) in Item data
 0x01 - BIT
 0x02 - BYTE
 0x03 - CHAR
@@ -104,13 +104,13 @@
 0x1F - IEC COUNTER
 0x20 - HS COUNTER
 
-#Variable ddressing mode
+# Variable ddressing mode
 0x10 - S7-Any pointer (regular addressing) memory+variable length+offset
 0xa2 - Drive-ES-Any seen on Drive ES Starter with routing over S7
 0xb2 - S1200/S1500? Symbolic addressing mode
 0xb0 - Special DB addressing for S400 (subitem read/write)
 
-#Transport size in data
+# Transport size in data
 0x00 - NULL
 0x03 - BIT
 0x04 - BYTE/WORD/DWORD
@@ -118,7 +118,7 @@
 0x07 - REAL
 0x09 - OCTET STRING
 
-#Block type constants
+# Block type constants
 '08' - OB
 '0A' - DB
 '0B' - SDB
@@ -127,7 +127,7 @@
 '0E' - FB
 '0F' - SFB
 
-#Sub block types
+# Sub block types
 0x08 - OB
 0x0a - DB
 0x0b - SDB
@@ -136,11 +136,11 @@
 0x0e - FB
 0x0f - SFB
 
-#Block security mode
+# Block security mode
 0 - None
 3 - Kow How Protect
 
-#Block Language
+# Block Language
 0x00 - Not defined
 0x01 - AWL
 0x02 - KOP
@@ -154,16 +154,16 @@
 0x12 - SDB (Routing) another SDB, in SDB 999 and SDB 1000 (routing information), uncertain
 0x29 - ENCRYPT  block is encrypted (encoded?) with S7-Block-Privacy
 
-#Userdata transmission type
+# Userdata transmission type
 0x0 - Push cyclic data push by the PLC
 0x4 - Request by the master
 0x8 - Response by the slave
 
-#Userdata last PDU
+# Userdata last PDU
 0x00 - Yes
 0x01 - No
 
-#Userdata Functions
+# Userdata Functions
 0x1 - Programmer commands
 0x2 - Cyclic data
 0x3 - Block functions
@@ -171,11 +171,11 @@
 0x5 - Security
 0x7 - Time functions
 
-#Variable table type of data
+# Variable table type of data
 0x14 - Request
 0x04 - Response
 
-#VAT area and length type
+# VAT area and length type
 0x01 - MB
 0x02 - MW
 0x03 - MD
@@ -194,7 +194,7 @@
 0x54 - TIMER
 0x64 - COUNTER
 
-#Userdata programmer subfunctions
+# Userdata programmer subfunctions
 0x01 - Request diag data (Type 1)
 0x02 - VarTab
 0x0c - Erase
@@ -203,16 +203,16 @@
 0x10 - Forces
 0x13 - Request diag data (Type2)
 
-#Userdata cyclic data subfunctions
+# Userdata cyclic data subfunctions
 0x01 - Memory
 0x04 - Unsubscribe
 
-#Userdata block subfunctions
+# Userdata block subfunctions
 0x01 - List blocks
 0x02 - List blocks of type
 0x03 - Get block info
 
-#Userdata CPU subfunctions
+# Userdata CPU subfunctions
 0x01 - Read SZL
 0x02 - Message service
 0x03 - Transition to stop
@@ -222,16 +222,16 @@
 0x13 - HMI/SCADA initiating ALARM subscription
 
 
-#Userdata security subfunctions
+# Userdata security subfunctions
 0x01 - PLC password
 
-#Userdata time subfunctions
+# Userdata time subfunctions
 0x01 - Read clock
 0x02 - Set clock
 0x03 - Read clock (following)
 0x04 - Set clock
 
-#Flags for LID access
+# Flags for LID access
 0x2 - Encapsulated LID
 0x3 - Encapsulated Index
 0x4 - Obtain by LID
@@ -239,7 +239,7 @@
 0x6 - Part Start Address
 0x7 - Part Length
 
-#TIA 1200 area names
+# TIA 1200 area names
 0x8a0e - DB
 0x0000 - IQMCT
 0x50 - Inputs (I)
