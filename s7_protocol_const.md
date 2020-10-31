@@ -1,12 +1,3 @@
-##
-# Most of this is extracted from s7comm 
-# wireshark dissector plugin sources 
-# created by Thomas Wiens <th.wiens[AT]gmx.de>
-# Date: 2016-15-03
-# Author: Gyorgy Miru
-# Version: 0.2
-##
-
 #Protocol ID:
 0x32 - Protocol ID
 
