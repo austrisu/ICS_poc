@@ -28,101 +28,89 @@ plc = snap7.client.Client()
 plc.connect(str(target_ip),0,1)
 
 print('Connected to %s' % target_ip)
+print('Default port 102')
+print(' ')
 
 print('Chose what to do:')
 print('1. Read from DB')
-print('2. Read Output states')
-print('3. Writing to DB')
-print('4. Writing to Output')
-print('5. Read PLC status')
+print('2. Writing to DB')
+print('3. Get CPU state')
+print('4. Get CPU info')
+print(' ')
 
 item = int(input('Chose option: '))
+print(' ')
 
-def read_from_db(plc, db_num, mem_start, size=1):
 
+def cpu_info (target):
+	try:
+		res = target.get_cpu_info()
+	except Exception as err:
+		return err
+	return res
+
+def cpu_state (target):
+	try:
+		res = target.get_cpu_state()
+	except Exception as err:
+		return err
+	return res
+
+def read_data(target, area, db_num, mem_start, size):
+
+	#area - is Memory Areas (see s7_protocol_const.md). Example: 0x82 - Outputs (Q)
+	#db_num - PLC program block DB number. If inputs or outputs or similar memory is accesed db_num=0
+	#mem_start - start of the memory, but PLC need to be configured for memory to be non-optimized, only then there is memory ofset.
 
 	try:
-		res = plc.db_read(db_num, mem_start, size)
+		res = target.read_area(area, db_num, mem_start, size)
 	except Exception as err:
-		print(err)
 		return err
 	return res
 
-def read_from_outputs(plc, area, db_num, mem_start, size=1):
-	'''q -> outputs'''
+def write_data(target, area, db_num, mem_start, data):
+	#area - is Memory Areas (see s7_protocol_const.md)  Example: 0x82 - Outputs (Q)
+	#db_num - PLC program block DB number. If inputs or outputs or similar memory is accesed db_num=0
+	#mem_start - start of the memory, but PLC need to be configured for memory to be non-optimized, only then there is memory ofset.
+	#data - bytes to write. First get byte (read_from) then change specific bits in that data and inject back
+
 	try:
-		res = plc.read_area(area, db_num, mem_start, size)
+		res = target.write_area(area, db_num, mem_start, data)
 	except Exception as err:
-		print(err)
 		return err
 	return res
 
-def write_to_any(plc, area, db_num, mem_start, data):
 
-	try:	
-		res = plc.write_area(area, db_num, mem_start, data)
+def stop(target):
+	try:
+		res = target.plc_stop() 
 	except Exception as err:
-		print(err)
 		return err
 	return res
-
-def read_db_1(plc):
-	db = int(input('Number of DB int: '))
-	mem_start = int(input('Memory starting position int: '))
-	size = int(input('Size in Bytes int: '))
-	
-	res = read_from_db(plc, db, mem_start, size)
-
-	if res == 1:
-		print('Unable to perform action')
-	else:
-		print(res)
-
-
-def read_q_2(plc):
-	area = 0x82
-	db_num = 0  # 0 becouse are is digital inputs of PLC Q0...etc
-	mem_start = int(input('Memory starting position int: '))
-	size = int(input('Size in Bytes int: '))
-
-	res = read_from_q(plc, area, db_num, mem_start, size)
-
-	if res == 1:
-		print('Unable to perform action')
-	else:
-		print(res)
-
-
-
-def write_q_4(plc):
-	area = 0x82
-	db_num = 0  # 0 becouse are is digital inputs of PLC Q0...etc
-	mem_start = int(input('Memory starting position int: '))
-	data = bytearray(input('data to write in byte stream (\\x00\\x00) : ').encode())
-
-	#data = 0x00
-
-	print(data)
-
-	print("------")
-
-	
-	
-	res = write_to_any(plc, area, db_num, mem_start, data)
-
-	print(res)
-
 
 if item == 1:
-	read_db_1(plc);
+	area = bytearray(input('Memory area in byte stream(\\x00\\x00) : ').encode())
+	db_num = int(input('Data Block number in decimal: '))
+	mem_start = int(input('Memory starting position in decimal: '))
+	size = int(input('How many bytes to read in decimal: '))
+	print(read_data(plc, area, db_num, mem_start, size))
+
 elif item == 2:
-	read_q_2(plc);
+	area = bytearray(input('Memory area in byte stream(\\x00\\x00) : ').encode())
+	db_num = int(input('Data Block number in decimal: '))
+	mem_start = int(input('Memory starting position in decimal: '))
+	data = bytearray(input('Data to write in byte stream (\\x00\\x00) : ').encode())
+	print(write_data(plc, area, db_num, mem_start, data))
+
 elif item == 3:
-	print('...')
+	print(cpu_state(plc))
+
 elif item == 4:
-	write_q_4(plc)
+	print(cpu_info(plc))
+
 elif item == 5:
-	print('...')
+	print(stop(plc))
+
 else:
 	print('No such option! Exiting')
 
