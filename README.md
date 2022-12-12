@@ -1,3 +1,3 @@
 # ICS_poc
 
-Proof of concept Modbus and S7comm scripts.
+Proof of concept exploits for Modbus and S7comm protocols.
